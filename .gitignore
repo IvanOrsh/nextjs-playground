@@ -37,3 +37,6 @@ next-env.d.ts
 
 #pb-data
 pb_data
+
+# env
+.env

@@ -307,3 +307,23 @@ const a = await fetch("...", { revalidate: 420 });
 ### basics - streaming
 
 TO BE ADDED LATER...
+
+### auth - setup
+
+1. `npm i --save next-auth`
+
+2. create catch all api route: `api/auth[...nextauth]`
+
+3. env: `openssl rand -base64 32`
+
+```.env
+GITHUB_ID=Iv1.fffffffff
+GITHUB_SECRET=0342ffffffffff
+NEXTAUTH_SECRET=J+RqR1Yj3eBdipDtgNOXqCtv1i5NmE8Axitq!ThR43k=
+```
+
+4. get credentials from github: `https://github.com/settings/developers` \_> create a new application...
+   set callback url: `http://localhost:3000/api/auth/callback/github`
+   (you should get github id and github secret token)
+
+5. navigate to `localhost:3000/api/auth/signin`

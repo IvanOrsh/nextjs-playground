@@ -121,3 +121,189 @@ const create = async () => {
   router.refresh();
 };
 ```
+
+### basics - routing
+
+1. file system routing
+2. component renders ui for that route
+3. `<Link href={`/about`}>About</Link>` - example.com/about - Faster client routing instead of full page reload
+
+additionally, we can use `useRouter` from `next/router` (programmatic routing):
+
+```ts
+import { useRouter } from "next/router";
+
+export default function Home() {
+  const router = useRouter();
+
+  const someEvent = () => {
+    router.push("/somePage");
+    router.back();
+    router.reload();
+  };
+
+  return <div></div>;
+}
+```
+
+4. dynamic routes: `https://example.com/hello/:id` -> `hello/[id]`, available as params prop:
+
+**on server components**:
+
+```ts
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Home({ params }: Props) {
+  const res = await fetch(`https://example.com/hello/${params.id}`);
+
+  return <div>{params.id}</div>;
+}
+```
+
+**on client components** (using `useParams` hook):
+
+```ts
+"use client";
+
+import { useParams } from "next/navigation";
+
+export default function Home() {
+  const { id } = useParams();
+
+  return <div>{id}</div>;
+}
+```
+
+**catch all**: `/hello/:id/:id/:id` -> `/hello/[...id]`
+
+5. route group `(stuff)` - no affect on actual url structure
+6. parallel routes: `@pro`, `@basic`:
+
+```ts
+export default function Layout({ children, pro, basic }: Props) {
+  return (
+    <>
+      {children}
+      // named slots
+      {pro}
+      {basic}
+    </>
+  );
+}
+```
+
+7. intercepting routes: `(..)cart`
+
+```txt
+[feed]
+|
+|------(..)photo/[id]
+|       |--page.tsx
+|----layout.tsx
+
+photo/[id]
+|
+|---page.tsx
+|---layout.tsx
+```
+
+### basics - route handlers
+
+Route files: `hello/route.ts` (routing primitive), CANNOT be used in the same directory as a page
+
+```ts
+// corresponds to http methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS
+export async function GET() {
+  return new Response("Hello, Next.js!");
+}
+
+export async function POST(request: Request) {
+  const data = await request.json();
+
+  return new Response("...");
+}
+```
+
+In addition, next.js extends Request/Response API with:
+
+```ts
+import { NextRequest, NextResponse } from "next/server";
+
+export async function PATCH(request: NextRequest) {
+  const url = request.nextUrl;
+
+  return NextResponse.json({ url });
+}
+```
+
+### basics - layouts
+
+1. root layout by default
+2. can be nested: `root layout > dashboard layout > page`
+3. we can fetch from layouts! (can be useful)
+4. layouts can be combined with route groups
+5. instead of `layout.tsx`, we can use `template.tsx` - re-mount on route changes
+
+### basics - rendering - seo
+
+1. by default - server component
+2. every page exports `dynamic` constant, `revalidate`:
+
+```ts
+export const dynamic = "auto"; // "force-dynamic", "force-static"
+// force-dynamic - always fetch latest data
+// force-static - like getStaticProps
+
+export const revalidate = 420; // isr - incremental static regeneration
+
+export default function Home() {
+  return <main></main>;
+}
+```
+
+3. export metadata variable:
+
+```ts
+export const metadata = {
+  title: "Hi the title!",
+  description: "Hi, I'm the description!",
+};
+```
+
+```ts
+export async function generateMetadata({ params }: Props) {
+  return {
+    title: "...",
+  };
+}
+```
+
+### basics - data fetching
+
+```ts
+export default async function Home() {
+  const a = await prisma.getMany();
+
+  const b = await firebase.getDoc();
+
+  const c = await fetch("....");
+}
+```
+
+also, next.js extends fetch api to provide automatic deduping, and cache control:
+
+```ts
+const a = await fetch("...", { cache: "no-store" }); // no-store for dynamic data
+
+// also revalidate option
+
+const a = await fetch("...", { revalidate: 420 });
+```
+
+### basics - streaming
+
+TO BE ADDED LATER...

@@ -4,14 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "pb:serve": "./pocketbase serve",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "next": "14.0.4",
-    "pocketbase": "^0.20.1",
     "react": "^18",
     "react-dom": "^18"
   },

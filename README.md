@@ -432,3 +432,9 @@ export default async function Home() {
 ```
 
 ### db - prisma
+
+1. `pnpx prisma init`
+2. get model from auth next (for prisma)
+3. `pnpx prisma migrate dev`
+
+## db - auth

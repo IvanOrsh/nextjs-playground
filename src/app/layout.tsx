@@ -23,7 +23,7 @@ export default function RootLayout({
         <body className={`${inter.className} bg-gray-200`}>
           <div className="max-w-3xl mt-10 mx-auto lg:max-w-7xl pt-2 px-4 pb-8">
             <NavMenu />
-            <div className="bg-white">{children}</div>
+            <div className="bg-white p-4">{children}</div>
           </div>
           <footer className="pt-8 pb-16 px-20 mx-auto text-center">
             <p>Created by the ruoja</p>

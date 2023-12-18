@@ -4,8 +4,10 @@ import { SignInButton } from "@/components/buttons";
 
 export default function NavMenu() {
   return (
-    <nav className="bg-white flex justify-between items-center py-4 border-b border-gray-300">
-      <Image src="/logo.svg" width={150} height={30} alt="NextSpace Logo" />
+    <nav className="bg-white flex justify-between items-center p-4 border-b border-gray-300">
+      <Link href="/">
+        <Image src="/logo.svg" width={150} height={30} alt="NextSpace Logo" />
+      </Link>
 
       <ul className="flex items-center space-x-4">
         <li className="text-2xl font-bold text-blue-600 hover:text-blue-800">

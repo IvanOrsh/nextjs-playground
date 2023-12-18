@@ -1,5 +1,6 @@
-import { faker } from "@faker-js/faker";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { faker } from "@faker-js/faker";
 
 import type { Post } from "@/entities/post";
 
@@ -14,5 +15,7 @@ for (let i = 0; i < 20; i++) {
 }
 
 export async function GET() {
+  const session = await getServerSession();
+
   return NextResponse.json(posts);
 }

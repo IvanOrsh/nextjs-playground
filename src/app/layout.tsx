@@ -20,12 +20,12 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang="en">
-        <body className={inter.className}>
-          <div className="max-w-3xl mx-auto lg:max-w-7xl pt-2 px-2 pb-8 bg-gray-200">
+        <body className={`${inter.className} bg-gray-200`}>
+          <div className="max-w-3xl mt-10 mx-auto lg:max-w-7xl pt-2 px-4 pb-8">
             <NavMenu />
             <div className="bg-white">{children}</div>
           </div>
-          <footer className="bg-gray-200 pt-8 pb-16 px-20 mx-auto text-center">
+          <footer className="pt-8 pb-16 px-20 mx-auto text-center">
             <p>Created by the ruoja</p>
 
             <div className="flex items-center justify-center gap-2">

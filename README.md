@@ -342,3 +342,73 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   return <SessionProvider>{children}</SessionProvider>;
 }
 ```
+
+2. AuthCheck.tsx (client side):
+
+```tsx
+"use client";
+
+import { useSession } from "next-auth/react";
+import { PropsWithChildren } from "react";
+
+export default function AuthCheck({ children }: PropsWithChildren) {
+  const { data: session, status } = useSession();
+
+  console.log(`[authcheck] status: ${status}`);
+
+  if (status === "authenticated") {
+    return <>{children}</>;
+  } else {
+    return <></>;
+  }
+}
+```
+
+3. we can also get access to session on server side:
+
+```ts
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+
+export async function GET() {
+  const session = await getServerSession();
+
+  return NextResponse.json(posts);
+}
+```
+
+### auth - buttons
+
+buttons
+
+```tsx
+"use client";
+
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+
+export function SignInButton() {
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <>...</>;
+  }
+
+  if (status === "authenticated") {
+    <Link href={"/dashboard"}>
+      <Image
+        src={session.user?.image ?? "/avatar.svg"}
+        width={32}
+        height={32}
+        alt="Your Name"
+      />
+    </Link>;
+  }
+
+  return <button onClick={() => signIn()}>Sign in</button>;
+}
+
+export function SignOutButton() {
+  return <button onClick={() => signOut()}>Sign out</button>;
+}
+```

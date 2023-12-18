@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { SignInButton } from "@/components/buttons";
 
 export default function NavMenu() {
   return (
@@ -17,6 +18,10 @@ export default function NavMenu() {
 
         <li className="text-2xl font-bold text-blue-600 hover:text-blue-800">
           <Link href="/users">Users</Link>
+        </li>
+
+        <li>
+          <SignInButton />
         </li>
       </ul>
     </nav>

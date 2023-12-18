@@ -1,8 +1,5 @@
 ## nextjs playground
 
-- using pocketbase as backend
-- using nextjs for frontend
-
 ### basics - quick refresher
 
 `about/` - example.com/about
@@ -438,3 +435,30 @@ export default async function Home() {
 3. `pnpx prisma migrate dev`
 
 ## db - auth
+
+1. prisma adapter: `pnpm add @next-auth/prisma-adapter`
+2. update `app/api/auth/[...nextauth].ts`:
+
+```ts
+import NextAuth from "next-auth/next";
+import type { NextAuthOptions } from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
+import { prisma } from "@/lib/prisma";
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
+    }),
+  ],
+};
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
+```
+
+### db - rsc - fetch

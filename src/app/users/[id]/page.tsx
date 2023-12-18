@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
+import FollowButton from "@/components/FollowButton/FollowButton";
 
 export async function generateMetadata({
   params,
@@ -40,6 +41,8 @@ export default async function UserPage({ params }: { params: { id: string } }) {
       <p>{user?.name}</p>
       <p>{user?.age || "No age"}</p>
       <p>{user?.bio || "No bio"}</p>
+
+      <FollowButton targetUserId={params.id} />
     </main>
   );
 }

@@ -22,6 +22,9 @@ export function ProfileForm({ user }: any) {
         "Content-Type": "application/json",
       },
     });
+
+    // not that great
+    // TODO: use different approach with useFormState react-dom hook
   };
 
   return (

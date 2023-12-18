@@ -327,3 +327,18 @@ NEXTAUTH_SECRET=J+RqR1Yj3eBdipDtgNOXqCtv1i5NmE8Axitq!ThR43k=
    (you should get github id and github secret token)
 
 5. navigate to `localhost:3000/api/auth/signin`
+
+### auth - current user
+
+1. AuthProvider.tsx
+
+```tsx
+"use client";
+
+import { SessionProvider } from "next-auth/react";
+import { PropsWithChildren } from "react";
+
+export default function AuthProvider({ children }: PropsWithChildren) {
+  return <SessionProvider>{children}</SessionProvider>;
+}
+```

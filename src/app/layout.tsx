@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import NavMenu from "./NavMenu";
+import AuthProvider from "./AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,23 +18,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="max-w-3xl mx-auto lg:max-w-7xl pt-2 px-2 pb-8 bg-gray-200">
-          <NavMenu />
-          <div className="bg-white">{children}</div>
-        </div>
-        <footer className="bg-gray-200 pt-8 pb-16 px-20 mx-auto text-center">
-          <p>Created by the ruoja</p>
-
-          <div className="flex items-center justify-center gap-2">
-            <Link href="/about">About</Link>
-            <a href="www.youtube.com">Youtube</a>
-            <a href="www.github.com">Source</a>
-            <a href="www.nextjs.com">NextJs Docs</a>
+    <AuthProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <div className="max-w-3xl mx-auto lg:max-w-7xl pt-2 px-2 pb-8 bg-gray-200">
+            <NavMenu />
+            <div className="bg-white">{children}</div>
           </div>
-        </footer>
-      </body>
-    </html>
+          <footer className="bg-gray-200 pt-8 pb-16 px-20 mx-auto text-center">
+            <p>Created by the ruoja</p>
+
+            <div className="flex items-center justify-center gap-2">
+              <Link href="/about">About</Link>
+              <a href="www.youtube.com">Youtube</a>
+              <a href="www.github.com">Source</a>
+              <a href="www.nextjs.com">NextJs Docs</a>
+            </div>
+          </footer>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

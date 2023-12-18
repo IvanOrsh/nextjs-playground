@@ -434,7 +434,7 @@ export default async function Home() {
 2. get model from auth next (for prisma)
 3. `pnpx prisma migrate dev`
 
-## db - auth
+### db - auth
 
 1. prisma adapter: `pnpm add @next-auth/prisma-adapter`
 2. update `app/api/auth/[...nextauth].ts`:
@@ -461,4 +461,4 @@ const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
 ```
 
-### db - rsc - fetch
+### adv - form + api mutation

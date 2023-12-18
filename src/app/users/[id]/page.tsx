@@ -38,6 +38,8 @@ export default async function UserPage({ params }: { params: { id: string } }) {
       />
 
       <p>{user?.name}</p>
+      <p>{user?.age || "No age"}</p>
+      <p>{user?.bio || "No bio"}</p>
     </main>
   );
 }
